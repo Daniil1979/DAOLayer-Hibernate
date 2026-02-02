@@ -13,20 +13,20 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, PersonId> {
 
-    @Query("SELECT p FROM Person p WHERE p.cityOfLiving = :city")
-    List<Person> findByCityOfLiving(@Param("city") String city);  // ← важно: именно так!
+    @Query(value = "SELECT * FROM PERSONS WHERE city_of_living = :city", nativeQuery = true)
+    List<Person> findByCityOfLiving(@Param("city") String city);
 
-    @Query("SELECT p FROM Person p WHERE p.age < :age ORDER BY p.age ASC")
+    @Query(value = "SELECT * FROM PERSONS WHERE age < :age ORDER BY age ASC", nativeQuery = true)
     List<Person> findByAgeLessThanOrderByAgeAsc(@Param("age") Integer age);
 
-    @Query("SELECT p FROM Person p WHERE p.name = :name AND p.surname = :surname AND p.age = :age")
+    @Query(value = "SELECT * FROM PERSONS WHERE name = :name AND surname = :surname AND age = :age", nativeQuery = true)
     Optional<Person> findByNameAndSurnameAndAge(
             @Param("name") String name,
             @Param("surname") String surname,
             @Param("age") Integer age
     );
 
-    @Query("SELECT p FROM Person p WHERE p.name = :name AND p.surname = :surname")
+    @Query(value = "SELECT * FROM PERSONS WHERE name = :name AND surname = :surname", nativeQuery = true)
     List<Person> findByNameAndSurname(
             @Param("name") String name,
             @Param("surname") String surname
