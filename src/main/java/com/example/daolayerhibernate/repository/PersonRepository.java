@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person, PersonId> {
 
     @Query("SELECT p FROM Person p WHERE p.cityOfLiving = :city")
-    List<Person> findByCityOfLiving(@Param("city") String city);  // ← важно: именно так!
+    List<Person> findByCityOfLiving(@Param("city") String city);
 
     @Query("SELECT p FROM Person p WHERE p.age < :age ORDER BY p.age ASC")
     List<Person> findByAgeLessThanOrderByAgeAsc(@Param("age") Integer age);
